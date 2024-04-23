@@ -1,0 +1,18 @@
+{
+    "s3": {
+      "host": "",
+      "port": 9000,
+      "access_key": "${TEST_ACCESS_KEY}",
+      "secret_key": "${TEST_SECRET_KEY}",
+      "bucket": "test_bucket"
+    },
+    "github": {
+      "pat": "${GITHUB_PAT}",
+      "org": "${GITHUB_ORG}"
+    },
+    "cofluence": {
+      "pat": "${CONFLUENCE_PAT}"
+    },
+    "log_level": "INFO"
+  }
+  

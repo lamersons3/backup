@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  app:
+    image: s3-backup-py3.9
+    volumes:
+      - app_data:/app/data
+
+  s3:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+    environment:
+      MINIO_ACCESS_KEY: test_access_key
+      MINIO_SECRET_KEY: test_secret_key
+    volumes:
+      - s3_data:/data
+    command: server /data
+
+  create_bucket:
+    image: minio/mc
+    entrypoint: >
+      sh -c "mc alias set myminio http://s3:9000 \$MINIO_ACCESS_KEY \$MINIO_SECRET_KEY &&
+             mc mb myminio/test_bucket"
+    environment:
+      MINIO_ACCESS_KEY: test_access_key
+      MINIO_SECRET_KEY: test_secret_key
+    depends_on:
+      - s3
+
+volumes:
+  app_data:
+  s3_data:
